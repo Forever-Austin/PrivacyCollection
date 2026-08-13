@@ -12,13 +12,14 @@
         .lang-switch { text-align: right; margin-bottom: 16px; }
         .lang-switch button { border: none; background: none; color: #3B6EA5; cursor: pointer; font-size: 0.9em; padding: 4px 8px; }
         .lang-switch button.active { font-weight: bold; }
-        [lang="zh"] { display: none; }
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
     </style>
     <script>
         function setLang(lang) {
             document.documentElement.lang = lang;
-            document.querySelectorAll('[lang]').forEach(el => {
-                el.style.display = (el.getAttribute('lang') === lang || el.tagName === 'HTML') ? '' : 'none';
+            document.querySelectorAll('.lang-content').forEach(el => {
+                el.classList.toggle('active', el.dataset.lang === lang);
             });
             document.querySelectorAll('.lang-switch button').forEach(b => {
                 b.classList.toggle('active', b.dataset.lang === lang);
@@ -38,7 +39,7 @@
         <button data-lang="en" onclick="setLang('en')">English</button>
         <button data-lang="zh" onclick="setLang('zh')">中文</button>
     </div>
-    <div lang="en">
+    <div class="lang-content active" data-lang="en">
         <h1>VinylVault Privacy Policy</h1>
         <p>Last updated: August 13, 2026</p>
 
@@ -70,7 +71,7 @@
         <h2>Contact</h2>
         <p>If you have any questions, please reach out via <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a>.</p>
     </div>
-    <div lang="zh">
+    <div class="lang-content" data-lang="zh">
         <h1>VinylVault 隐私政策</h1>
         <p>最后更新：2026 年 8 月 13 日</p>
 
