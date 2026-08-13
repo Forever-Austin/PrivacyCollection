@@ -9,20 +9,62 @@
         h1 { font-size: 1.6em; margin-bottom: 24px; }
         h2 { font-size: 1.15em; margin-top: 28px; }
         a { color: #3B6EA5; }
+        .lang-switch { text-align: right; margin-bottom: 16px; }
+        .lang-switch button { border: none; background: none; color: #3B6EA5; cursor: pointer; font-size: 0.9em; padding: 4px 8px; }
+        .lang-switch button.active { font-weight: bold; }
+        [lang="zh"] { display: none; }
     </style>
+    <script>
+        function setLang(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = (el.getAttribute('lang') === lang || el.tagName === 'HTML') ? '' : 'none';
+            });
+            document.querySelectorAll('.lang-switch button').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+            try { localStorage.setItem('vinylvault_lang', lang); } catch(e) {}
+        }
+        function init() {
+            let saved = 'en';
+            try { saved = localStorage.getItem('vinylvault_lang') || 'en'; } catch(e) {}
+            setLang(saved);
+        }
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </head>
 <body>
-    <h1>VinylVault Support</h1>
-    <p>Thank you for using VinylVault!</p>
+    <div class="lang-switch">
+        <button data-lang="en" onclick="setLang('en')">English</button>
+        <button data-lang="zh" onclick="setLang('zh')">中文</button>
+    </div>
+    <div lang="en">
+        <h1>VinylVault Support</h1>
+        <p>Thank you for using VinylVault!</p>
 
-    <h2>FAQ</h2>
-    <p><strong>Q: Scanning a barcode returns no results?</strong><br>A: Try a different pressing or use the manual search. Some older or unofficial releases have no barcode in the Discogs database — search by artist and album title instead.</p>
-    <p><strong>Q: How do I add a record that has no barcode?</strong><br>A: Tap the search icon and look up the record by artist or album title. Old pressings often lack barcodes, and search handles those cases.</p>
-    <p><strong>Q: Is my collection backed up?</strong><br>A: Your data is stored locally on your device. We recommend using your phone's system backup to protect your data.</p>
-    <p><strong>Q: How do I organize records into collections?</strong><br>A: Open a record's details and tap the collections icon, or use the Collections tab to create and manage groups like "Jazz Corner" or "To Sell".</p>
-    <p><strong>Q: How do I restore a purchase?</strong><br>A: Go to the Profile tab and tap "Restore Purchases".</p>
+        <h2>FAQ</h2>
+        <p><strong>Q: Scanning a barcode returns no results?</strong><br>A: Try a different pressing or use the manual search. Some older or unofficial releases have no barcode in the Discogs database.</p>
+        <p><strong>Q: How do I add a record that has no barcode?</strong><br>A: Tap the search icon and look up the record by artist or album title.</p>
+        <p><strong>Q: Is my collection backed up?</strong><br>A: Your data is stored locally. We recommend using your phone's system backup.</p>
+        <p><strong>Q: How do I organize records into collections?</strong><br>A: Open a record's details and tap the collections icon, or use the Collections tab to create groups.</p>
+        <p><strong>Q: How do I restore a purchase?</strong><br>A: Go to the Profile tab and tap "Restore Purchases".</p>
 
-    <h2>Feedback &amp; Suggestions</h2>
-    <p>We'd love to hear from you. Please submit issues or suggestions via <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a>.</p>
+        <h2>Feedback &amp; Suggestions</h2>
+        <p>Please submit issues or suggestions via <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a>.</p>
+    </div>
+    <div lang="zh">
+        <h1>VinylVault 帮助</h1>
+        <p>感谢使用 VinylVault！</p>
+
+        <h2>常见问题</h2>
+        <p><strong>问：扫描条码没有结果？</strong><br>答：试试其他压制版本，或使用手动搜索。一些较老或非官方发行版本在 Discogs 数据库中没有条码。</p>
+        <p><strong>问：如何添加没有条码的唱片？</strong><br>答：点击搜索图标，按艺人或专辑名称查找。</p>
+        <p><strong>问：我的收藏会备份吗？</strong><br>答：数据存储在本地，建议使用手机系统备份。</p>
+        <p><strong>问：如何把唱片整理进合集？</strong><br>答：打开唱片详情页并点击合集图标，或在合集标签页创建分组。</p>
+        <p><strong>问：如何恢复购买？</strong><br>答：进入个人中心标签页，点击「恢复购买」。</p>
+
+        <h2>反馈与建议</h2>
+        <p>请通过 <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a> 提交问题或建议。</p>
+    </div>
 </body>
 </html>

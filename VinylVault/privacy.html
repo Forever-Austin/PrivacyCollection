@@ -9,39 +9,98 @@
         h1 { font-size: 1.6em; margin-bottom: 24px; }
         h2 { font-size: 1.15em; margin-top: 28px; }
         a { color: #3B6EA5; }
+        .lang-switch { text-align: right; margin-bottom: 16px; }
+        .lang-switch button { border: none; background: none; color: #3B6EA5; cursor: pointer; font-size: 0.9em; padding: 4px 8px; }
+        .lang-switch button.active { font-weight: bold; }
+        [lang="zh"] { display: none; }
     </style>
+    <script>
+        function setLang(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = (el.getAttribute('lang') === lang || el.tagName === 'HTML') ? '' : 'none';
+            });
+            document.querySelectorAll('.lang-switch button').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+            try { localStorage.setItem('vinylvault_lang', lang); } catch(e) {}
+        }
+        function init() {
+            let saved = 'en';
+            try { saved = localStorage.getItem('vinylvault_lang') || 'en'; } catch(e) {}
+            setLang(saved);
+        }
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </head>
 <body>
-    <h1>VinylVault Privacy Policy</h1>
-    <p>Last updated: August 13, 2026</p>
+    <div class="lang-switch">
+        <button data-lang="en" onclick="setLang('en')">English</button>
+        <button data-lang="zh" onclick="setLang('zh')">中文</button>
+    </div>
+    <div lang="en">
+        <h1>VinylVault Privacy Policy</h1>
+        <p>Last updated: August 13, 2026</p>
 
-    <h2>Overview</h2>
-    <p>VinylVault is built for collectors who care about their records. We believe your collection is yours — so we keep your data on your device and collect as little as possible.</p>
+        <h2>Overview</h2>
+        <p>VinylVault is built for collectors who care about their records. We believe your collection is yours — so we keep your data on your device and collect as little as possible.</p>
 
-    <h2>Information We Collect</h2>
-    <p>VinylVault does not require an account and does not collect personally identifiable information. Here is how we handle data:</p>
-    <ul>
-        <li><strong>Collection Data</strong>: The records you catalog, including titles, artists, formats, barcodes, and notes. All data is stored locally on your device only.</li>
-        <li><strong>Camera</strong>: The camera is used only to scan barcodes on record sleeves. Images are processed on-device and never uploaded.</li>
-    </ul>
+        <h2>Information We Collect</h2>
+        <ul>
+            <li><strong>Collection Data</strong>: The records you catalog, including titles, artists, formats, barcodes, and notes. All data is stored locally on your device only.</li>
+            <li><strong>Camera</strong>: The camera is used only to scan barcodes on record sleeves. Images are processed on-device and never uploaded.</li>
+        </ul>
 
-    <h2>Third-Party Services</h2>
-    <ul>
-        <li><strong>Discogs</strong>: We query the public Discogs API to match barcodes and fetch record metadata (titles, cover art, market prices). When you search or scan a record, your query is sent to Discogs. VinylVault does not have access to your Discogs account. See <a href="https://www.discogs.com/privacy">Discogs Privacy Policy</a> for how Discogs handles requests.</li>
-        <li><strong>In-App Purchases</strong>: Purchases are processed by Apple (App Store) and Google (Play Store). We do not see or store your payment information.</li>
-    </ul>
+        <h2>Third-Party Services</h2>
+        <ul>
+            <li><strong>Discogs</strong>: We query the public Discogs API to match barcodes and fetch record metadata. When you search or scan a record, your query is sent to Discogs. VinylVault does not have access to your Discogs account. See <a href="https://www.discogs.com/privacy">Discogs Privacy Policy</a>.</li>
+            <li><strong>In-App Purchases</strong>: Purchases are processed by Apple (App Store) and Google (Play Store). We do not see or store your payment information.</li>
+        </ul>
 
-    <h2>Data Storage &amp; Deletion</h2>
-    <ul>
-        <li>Your collection, wishlist, and preferences are stored locally on your device.</li>
-        <li>Uninstalling the app removes all locally stored data.</li>
-        <li>We do not operate servers that store your data, and we do not sell or share personal data.</li>
-    </ul>
+        <h2>Data Storage &amp; Deletion</h2>
+        <ul>
+            <li>Your collection, wishlist, and preferences are stored locally on your device.</li>
+            <li>Uninstalling the app removes all locally stored data.</li>
+            <li>We do not operate servers that store your data, and we do not sell or share personal data.</li>
+        </ul>
 
-    <h2>Analytics &amp; Advertising</h2>
-    <p>VinylVault does not use advertising or third-party analytics SDKs.</p>
+        <h2>Analytics &amp; Advertising</h2>
+        <p>VinylVault does not use advertising or third-party analytics SDKs.</p>
 
-    <h2>Contact</h2>
-    <p>If you have any questions about this policy, please reach out via <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a>.</p>
+        <h2>Contact</h2>
+        <p>If you have any questions, please reach out via <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a>.</p>
+    </div>
+    <div lang="zh">
+        <h1>VinylVault 隐私政策</h1>
+        <p>最后更新：2026 年 8 月 13 日</p>
+
+        <h2>概述</h2>
+        <p>VinylVault 专为珍视唱片的收藏家打造。我们相信你的收藏属于你自己——因此我们只把数据保存在你的设备上，并尽可能少地收集信息。</p>
+
+        <h2>我们收集的信息</h2>
+        <ul>
+            <li><strong>收藏数据</strong>：你整理的唱片信息，包括标题、艺人、格式、条码和备注。所有数据仅保存在你的设备本地。</li>
+            <li><strong>相机</strong>：相机仅用于扫描唱片封套上的条码。图像在设备端处理，不会上传。</li>
+        </ul>
+
+        <h2>第三方服务</h2>
+        <ul>
+            <li><strong>Discogs</strong>：我们调用公开的 Discogs API 来匹配条码并获取唱片元数据。搜索或扫描时，查询会发送给 Discogs。VinylVault 无法访问你的 Discogs 账户。详见 <a href="https://www.discogs.com/privacy">Discogs 隐私政策</a>。</li>
+            <li><strong>应用内购买</strong>：购买由 Apple（App Store）和 Google（Play Store）处理。我们不会看到或存储你的支付信息。</li>
+        </ul>
+
+        <h2>数据存储与删除</h2>
+        <ul>
+            <li>你的收藏、愿望单和偏好设置都存储在设备本地。</li>
+            <li>卸载应用会删除所有本地数据。</li>
+            <li>我们不运营存储你数据的服务器，也不会出售或分享个人数据。</li>
+        </ul>
+
+        <h2>分析与广告</h2>
+        <p>VinylVault 不使用广告或第三方分析 SDK。</p>
+
+        <h2>联系我们</h2>
+        <p>如有任何问题，请通过 <a href="https://github.com/Forever-Austin/PrivacyCollection/issues">GitHub Issues</a> 联系我们。</p>
+    </div>
 </body>
 </html>
